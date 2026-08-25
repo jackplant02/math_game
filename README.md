@@ -1,0 +1,1 @@
+Simple math game, including problems ranging from simple algebra to complex ODE problems. This program was first created by me around 2022/23, but has been re-worked as a Python program.
