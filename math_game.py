@@ -7,6 +7,27 @@ score = 0
 global done
 done = [False] * 8
 
+class Polynomial:
+    coefficient_list = []
+
+    @staticmethod
+    def set_polynomial(pow0, pow1, pow2, pow3, pow4, pow5):
+        Polynomial.coefficient_list.clear()
+        Polynomial.coefficient_list.append(pow5)
+        Polynomial.coefficient_list.append(pow4)
+        Polynomial.coefficient_list.append(pow3)
+        Polynomial.coefficient_list.append(pow2)
+        Polynomial.coefficient_list.append(pow1)
+        Polynomial.coefficient_list.append(pow0)
+        return True
+
+    def get_polynomial(self):
+        polynomial_set = []
+        zeros_count = 0
+
+        for i in range(len(Polynomial.coefficient_list)):
+            
+
 class Questions:
     @staticmethod
     def question_text(q, done_index):
@@ -50,6 +71,14 @@ class Questions:
             return True
         else:
             return False
+
+    # Quadratic Roots 
+    def question3():
+        a = random.randint(-3, 3)
+        b = random.randint(-21, 21)
+        c = random.randint(-10, 10)
+
+
 
         
 def handle_question(question):
