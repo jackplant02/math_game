@@ -26,7 +26,7 @@ class Polynomial:
         zeros_count = 0
 
         for i in range(len(Polynomial.coefficient_list)):
-            
+            print(i)
 
 class Questions:
     @staticmethod
@@ -55,7 +55,10 @@ class Questions:
         else:
             answer = input(f"\n{num1} + {num2} = ").strip()
 
-        if int(answer) == num1 + num2:
+        if answer is "":
+            return False
+
+        elif int(answer) == num1 + num2:
             return True
         else:
             return False
@@ -67,7 +70,10 @@ class Questions:
 
         answer = input(f"\n{num1} x {num2} = ").strip()
 
-        if int(answer) == num1 * num2:
+        if answer is "":
+            return False
+
+        elif int(answer) == num1 * num2:
             return True
         else:
             return False
