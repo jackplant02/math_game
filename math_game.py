@@ -69,8 +69,8 @@ class Polynomial:
         """
         sum = 0
         
-        for i in range(len(self.coefficient_list)):
-            sum += self.coefficient_list[i] * (x ** (len(self.coefficient_list) - i - 1))
+        for i in range(len(Polynomial.coefficient_list)):
+            sum += Polynomial.coefficient_list[i] * (x ** (len(Polynomial.coefficient_list) - i - 1))
 
         return sum
 
@@ -83,11 +83,11 @@ class Polynomial:
 
         sum = 0
 
-        for i in range(len(self.coefficient_list)):
-            if x == 0 and len(self.coefficient_list) - i - 2 < 0:
+        for i in range(len(Polynomial.coefficient_list)):
+            if x == 0 and len(Polynomial.coefficient_list) - i - 2 < 0:
                 term = 0
             else:
-                term = (len(self.coefficient_list) - i - 1) * self.coefficient_list[i] * (x ** (len(self.self.coefficient_list) - i - 2))
+                term = (len(Polynomial.coefficient_list) - i - 1) * Polynomial.coefficient_list[i] * (x ** (len(Polynomial.coefficient_list) - i - 2))
             sum += term
 
         return sum
@@ -97,9 +97,9 @@ class Polynomial:
 
         sum = 0
 
-        for i in range(len(self.coefficient_list)):
-            term1 = self.coefficient_list[i] / (len(self.coefficient_list) - i - 1) * (a ** len(self.coefficient_list) - i)
-            term2 = self.coefficient_list[i] / (len(self.coefficient_list) - i - 1) * (b ** len(self.coefficient_list) - i)
+        for i in range(len(Polynomial.coefficient_list)):
+            term1 = Polynomial.coefficient_list[i] / (len(Polynomial.coefficient_list) - i - 1) * (a ** len(Polynomial.coefficient_list) - i)
+            term2 = Polynomial.coefficient_list[i] / (len(Polynomial.coefficient_list) - i - 1) * (b ** len(Polynomial.coefficient_list) - i)
             term = term1 + term2
             sum += term
 
@@ -259,11 +259,11 @@ class Questions:
         D = b ** 2 - 4. * a * c
 
         print(f"\nSolve for x: {Polynomial.get_polynomial(quad)} = 0")
-        print("Please write your answer(s) to 3 decimal places, pressing 'Enter' after each entry.")
-        print("If no real solutions exist, press the enter key once.\n")
+        print("Please write your answer(s) to 3 decimal places, pressing the 'Enter' key after each entry.")
+        print('If no real solutions exist, type "N/A".\n')
 
         if D < 0 and a != 0:
-            if input() == "":
+            if input().lower() == "n/a":
                 return True
 
         elif a == 0:
@@ -304,11 +304,34 @@ class Questions:
         e = random.randint(-5, 5)
         f = random.randint(-5, 5)
 
-        Polynomial.set_polynomial(f, e, d, c, b, a)
+        dev_poly = Polynomial.set_polynomial(f, e, d, c, b, a)
 
         seed_for_x = random.randint(-20, 20)
 
-        
+        print(f"\nEvaluate the first derivative of {Polynomial.get_polynomial(dev_poly)} at x = {seed_for_x}.\b")
+
+        try:
+            if round(float(input().strip()), 3) == round(Polynomial.evaluate_polynomial_derivative(dev_poly, seed_for_x), 3):
+                return True
+            else:
+                return False
+
+        except ValueError:
+            return False
+     
+    def question5():
+        size = random.randint(2, 5)
+        product = 0
+
+        list1 = []
+        list2 = []
+
+        for i in range(size):
+            num1 = random.randint(-10, 10)
+            list1.append(num1)
+            num2 = random.randint(-10, 10)
+            list2.append(num2)
+
         
 
         
@@ -337,7 +360,7 @@ while True:
     if selection == 'q':
         break
 
-    done_index = 3
+    done_index = 4
 
     if selection.isdigit() and int(selection) in range(1, done_index + 1):
         handle_question(int(selection))
