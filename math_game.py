@@ -1,5 +1,6 @@
 import random
 import cmath
+import math
 
 # Initialize score and done bools
 
@@ -33,10 +34,20 @@ class Polynomial:
             elif i < len(Polynomial.coefficient_list) - 1:
 
                 if len(Polynomial.coefficient_list) - i - 1 == 1:
-                    polynomial_set.append(f"{Polynomial.coefficient_list[i]}x + ")
+                    if Polynomial.coefficient_list[i] == 1:
+                        polynomial_set.append(f"x + ")
+                    elif Polynomial.coefficient_list[i] == -1:
+                        polynomial_set.append(f"-x + ")
+                    else:
+                        polynomial_set.append(f"{Polynomial.coefficient_list[i]}x + ")
 
                 else:
-                    polynomial_set.append(f"{Polynomial.coefficient_list[i]}x^{len(Polynomial.coefficient_list) - i - 1} + ")
+                    if Polynomial.coefficient_list[i] == 1:
+                        polynomial_set.append(f"x^{len(Polynomial.coefficient_list) - i - 1} + ")
+                    elif Polynomial.coefficient_list[i] == -1:
+                        polynomial_set.append(f"-x^{len(Polynomial.coefficient_list) - i - 1} + ")
+                    else:
+                        polynomial_set.append(f"{Polynomial.coefficient_list[i]}x^{len(Polynomial.coefficient_list) - i - 1} + ")
 
             else:
                 polynomial_set.append(f"{Polynomial.coefficient_list[i]}")
@@ -47,6 +58,8 @@ class Polynomial:
         result = ""
         for item in polynomial_set:
             result += item
+
+        result = result.replace("+ -", "- ")
         return result
 
     def evaluate_polynomial(self, x):
@@ -249,7 +262,38 @@ class Questions:
         print("Please write your answer(s) to 3 decimal places.")
         print("If no real solutions exist, press the enter key once.")
 
+        if D < 0 and a != 0:
+            if input() == "":
+                return True
 
+        elif a == 0:
+            try:
+                if round(float(input()), 3) == round((-c / b), 3):
+                    return True
+            except ValueError:
+                return False
+
+        else:
+            root1 = round((-b + math.sqrt(D)) / (2 * a), 3)
+            root2 = round((-b - math.sqrt(D)) / (2 * a), 3)
+
+            try:
+                if root1 == root2:
+                    if round(float(input().strip()), 3) == root1:
+                        return True
+
+                else:
+                    ans1 = round(float(input().strip()), 3)
+                    ans2 = round(float(input().strip()), 3)
+                    if (root1 == ans1 and root2 == ans2) or (root2 == ans1 and root1 == ans2):
+                        return True
+            except ValueError:
+                return False
+
+        return False
+
+
+        
 
         
 def handle_question(question):
