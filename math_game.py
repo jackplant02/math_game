@@ -371,9 +371,17 @@ class Questions:
 
         if cos_coeff != 0:
             if cos_arg != 1:
-                cos_string = f"({cos_coeff})cos({cos_arg}x)"
+                cos_string = f"({cos_coeff})cos({cos_arg}x) + "
             else:
-                cos_string = f"({cos_coeff})cos(x)"
+                cos_string = f"({cos_coeff})cos(x) + "
+
+        if sin_coeff != 0:
+            if sin_arg != 1:
+                sin_string = f"({sin_coeff})sin({sin_arg}x) + "
+            else:
+                sin_string = f"({sin_coeff})sin(x) + "
+
+        
 
         
 def handle_question(question):
