@@ -259,8 +259,8 @@ class Questions:
         D = b ** 2 - 4. * a * c
 
         print(f"\nSolve for x: {Polynomial.get_polynomial(quad)} = 0")
-        print("Please write your answer(s) to 3 decimal places.")
-        print("If no real solutions exist, press the enter key once.")
+        print("Please write your answer(s) to 3 decimal places, pressing 'Enter' after each entry.")
+        print("If no real solutions exist, press the enter key once.\n")
 
         if D < 0 and a != 0:
             if input() == "":
@@ -292,7 +292,23 @@ class Questions:
 
         return False
 
+    def question4():
+        """
+        Derivative at x of a polynomial.
+        """
 
+        a = random.randint(-5, 5)
+        b = random.randint(-5, 5)
+        c = random.randint(-5, 5)
+        d = random.randint(-5, 5)
+        e = random.randint(-5, 5)
+        f = random.randint(-5, 5)
+
+        Polynomial.set_polynomial(f, e, d, c, b, a)
+
+        seed_for_x = random.randint(-20, 20)
+
+        
         
 
         
