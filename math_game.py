@@ -308,10 +308,10 @@ class Questions:
 
         seed_for_x = random.randint(-20, 20)
 
-        print(f"\nEvaluate the first derivative of {Polynomial.get_polynomial(dev_poly)} at x = {seed_for_x}.\b")
+        print(f"\nEvaluate the first derivative of {Polynomial.get_polynomial(dev_poly)} at x = {seed_for_x}.\n")
 
         try:
-            if round(float(input().strip()), 3) == round(Polynomial.evaluate_polynomial_derivative(dev_poly, seed_for_x), 3):
+            if int(input().strip()) == Polynomial.evaluate_polynomial_derivative(dev_poly, seed_for_x):
                 return True
             else:
                 return False
@@ -332,7 +332,20 @@ class Questions:
             num2 = random.randint(-10, 10)
             list2.append(num2)
 
-        
+            product += num1 * num2
+
+        vector1 = "<" + ", ".join(str(item) for item in list1) + ">"
+        vector2 = "<" + ", ".join(str(item) for item in list2) + ">"
+
+        print(f"\nCompute the dot product of the vectors {vector1} and {vector2}.\n")
+
+        try:
+            if input().strip() == str(product):
+                return True
+        except ValueError:
+            return False
+
+        return False        
 
         
 def handle_question(question):
@@ -360,7 +373,7 @@ while True:
     if selection == 'q':
         break
 
-    done_index = 4
+    done_index = 5
 
     if selection.isdigit() and int(selection) in range(1, done_index + 1):
         handle_question(int(selection))
