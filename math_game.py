@@ -347,6 +347,34 @@ class Questions:
 
         return False        
 
+    def question6():
+        cos_coeff = random.randint(-5, 5)
+        sin_coeff = random.randint(-5, 5)
+        cos_arg = random.randint(1, 10)
+        sin_arg = random.randint(1, 10)
+
+        cos_string = ""
+        sin_string = ""
+
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        c = random.randint(-10, 10)
+        d = random.randint(-10, 10)
+
+        while a == 0 and b == 0 and c == 0 and d == 0:
+            d = random.randint(-10, 10)
+
+        Polynomial.set_polynomial(d, c, b, a, 0, 0)
+
+        bound1 = random.randint(-10, 10)
+        bound2 = random.randint(bound1, 10)
+
+        if cos_coeff != 0:
+            if cos_arg != 1:
+                cos_string = f"({cos_coeff})cos({cos_arg}x)"
+            else:
+                cos_string = f"({cos_coeff})cos(x)"
+
         
 def handle_question(question):
     question_map = {
