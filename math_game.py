@@ -364,7 +364,7 @@ class Questions:
         while a == 0 and b == 0 and c == 0 and d == 0:
             d = random.randint(-10, 10)
 
-        Polynomial.set_polynomial(d, c, b, a, 0, 0)
+        q6_poly = Polynomial.set_polynomial(d, c, b, a, 0, 0)
 
         bound1 = random.randint(-10, 10)
         bound2 = random.randint(bound1, 10)
@@ -381,7 +381,48 @@ class Questions:
             else:
                 sin_string = f"({sin_coeff})sin(x) + "
 
-        
+
+        f = cos_string + sin_string + Polynomial.get_polynomial(q6_poly)
+
+        ICos = (1.0 / cos_arg) * cos_coeff * (math.sin(cos_arg * bound2) - math.sin(cos_arg * bound1))
+        ISin = (1.0 / sin_arg) * sin_coeff * (math.cos(sin_arg * bound1) - math.cos(sin_arg * bound2))
+
+        fIntegral = Polynomial.evaluate_polynomial_integral(bound1, bound2) + ICos + ISin
+
+        cos_coeff = random.randint(-5, 5)
+        sin_coeff = random.randint(-5, 5)
+        cos_arg = random.randint(1, 10)
+        sin_arg = random.randint(1, 10)
+
+        cos_string = ""
+        sin_string = ""
+
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        c = random.randint(-10, 10)
+        d = random.randint(-10, 10)
+
+        while a == 0 and b == 0 and c == 0 and d == 0:
+            d = random.randint(-10, 10)
+
+        new_polynomial = Polynomial.set_polynomial(d, c, b, a, 0, 0)
+
+        if cos_coeff != 0:
+            if cos_arg != 1:
+                cos_string = f"({cos_coeff})cos({cos_arg}x) + "
+            else:
+                cos_string = f"({cos_coeff})cos(x) + "
+
+        if sin_coeff != 0:
+            if sin_arg != 1:
+                sin_string = f"({sin_coeff})sin({sin_arg}x) + "
+            else:
+                sin_string = f"({sin_coeff})sin(x) + "
+
+        g = cos_string + sin_string + Polynomial.get_polynomial(new_polynomial)
+
+
+
 
         
 def handle_question(question):
