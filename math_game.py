@@ -420,8 +420,26 @@ class Questions:
                 sin_string = f"({sin_coeff})sin(x) + "
 
         g = cos_string + sin_string + Polynomial.get_polynomial(new_polynomial)
+        ICos = (1.0 / cos_arg) * cos_coeff * (math.sin(cos_arg * bound2) - math.sin(cos_arg * bound1))
+        ISin = (1.0 / sin_arg) * sin_coeff * (math.cos(sin_arg * bound1) - math.cos(sin_arg * bound2))
+        gIntegral = Polynomial.evaluate_polynomial_integral(new_polynomial, bound1, bound2) + ICos + ISin
+
+        ans = math.abs(fIntegral - gIntegral)
+
+        print(f"\nf(x) = {f}")
+        print(f"g(x) = {g}")
+        print(f"Calculate the area enclosed within f(x), g(x), x = {bound1}, and x = {bound2}.")
+        print("Enter your answer to 3 decimal places.\n")
+
+        try:
+            if round(ans, 3) == round(float(input()), 3):
+                return True
+
+        except ValueError:
+            return False
 
 
+        return False        
 
 
         
