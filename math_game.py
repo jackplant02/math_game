@@ -462,7 +462,7 @@ class Questions:
             else:
                 sin_string = f"{sin_coeff}sin(x) + "
 
-        if xy_coeff != 0
+        if xy_coeff != 0:
             xy_string = f"{xy_coeff}xy + "
 
         # do all polynomial stuff here
