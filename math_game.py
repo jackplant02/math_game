@@ -98,8 +98,17 @@ class Polynomial:
         sum = 0
 
         for i in range(len(Polynomial.coefficient_list)):
-            term1 = Polynomial.coefficient_list[i] / (len(Polynomial.coefficient_list) - i - 1) * (a ** len(Polynomial.coefficient_list) - i)
-            term2 = Polynomial.coefficient_list[i] / (len(Polynomial.coefficient_list) - i - 1) * (b ** len(Polynomial.coefficient_list) - i)
+            power = len(Polynomial.coefficient_list) - i - 1
+            if power == 0:
+                term1 = Polynomial.coefficient_list[i]
+            else:
+                term1 = Polynomial.coefficient_list[i] / power * (a ** power)
+            
+            if power == 0:
+                term2 = Polynomial.coefficient_list[i]
+            else:
+                term2 = Polynomial.coefficient_list[i] / power * (b ** power)
+            
             term = term1 + term2
             sum += term
 
@@ -371,23 +380,23 @@ class Questions:
 
         if cos_coeff != 0:
             if cos_arg != 1:
-                cos_string = f"({cos_coeff})cos({cos_arg}x) + "
+                cos_string = f"{cos_coeff}cos({cos_arg}x) + "
             else:
-                cos_string = f"({cos_coeff})cos(x) + "
+                cos_string = f"{cos_coeff}cos(x) + "
 
         if sin_coeff != 0:
             if sin_arg != 1:
-                sin_string = f"({sin_coeff})sin({sin_arg}x) + "
+                sin_string = f"{sin_coeff}sin({sin_arg}x) + "
             else:
-                sin_string = f"({sin_coeff})sin(x) + "
+                sin_string = f"{sin_coeff}sin(x) + "
 
 
         f = cos_string + sin_string + Polynomial.get_polynomial(q6_poly)
-
+        f = f.replace("+ -", "- ")
         ICos = (1.0 / cos_arg) * cos_coeff * (math.sin(cos_arg * bound2) - math.sin(cos_arg * bound1))
         ISin = (1.0 / sin_arg) * sin_coeff * (math.cos(sin_arg * bound1) - math.cos(sin_arg * bound2))
 
-        fIntegral = Polynomial.evaluate_polynomial_integral(bound1, bound2) + ICos + ISin
+        fIntegral = Polynomial.evaluate_polynomial_integral(q6_poly, bound1, bound2) + ICos + ISin
 
         cos_coeff = random.randint(-5, 5)
         sin_coeff = random.randint(-5, 5)
@@ -409,22 +418,23 @@ class Questions:
 
         if cos_coeff != 0:
             if cos_arg != 1:
-                cos_string = f"({cos_coeff})cos({cos_arg}x) + "
+                cos_string = f"{cos_coeff}cos({cos_arg}x) + "
             else:
-                cos_string = f"({cos_coeff})cos(x) + "
+                cos_string = f"{cos_coeff}cos(x) + "
 
         if sin_coeff != 0:
             if sin_arg != 1:
-                sin_string = f"({sin_coeff})sin({sin_arg}x) + "
+                sin_string = f"{sin_coeff}sin({sin_arg}x) + "
             else:
-                sin_string = f"({sin_coeff})sin(x) + "
+                sin_string = f"{sin_coeff}sin(x) + "
 
         g = cos_string + sin_string + Polynomial.get_polynomial(new_polynomial)
+        g = g.replace("+ -", "- ")
         ICos = (1.0 / cos_arg) * cos_coeff * (math.sin(cos_arg * bound2) - math.sin(cos_arg * bound1))
         ISin = (1.0 / sin_arg) * sin_coeff * (math.cos(sin_arg * bound1) - math.cos(sin_arg * bound2))
         gIntegral = Polynomial.evaluate_polynomial_integral(new_polynomial, bound1, bound2) + ICos + ISin
 
-        ans = math.abs(fIntegral - gIntegral)
+        ans = abs(fIntegral - gIntegral)
 
         print(f"\nf(x) = {f}")
         print(f"g(x) = {g}")
@@ -468,7 +478,7 @@ while True:
     if selection == 'q':
         break
 
-    done_index = 5
+    done_index = 6
 
     if selection.isdigit() and int(selection) in range(1, done_index + 1):
         handle_question(int(selection))
