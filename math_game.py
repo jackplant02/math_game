@@ -448,7 +448,7 @@ class Questions:
                 e_string = f"{e_coeff}xe^({e_arg}y) + "
 
             else:
-                e_string = f"{e_coeff}xe^(y) + "
+                e_string = f"{e_coeff}xe^y + "
 
         if cos_coeff != 0:
             if cos_arg != 1:
@@ -516,6 +516,22 @@ class Questions:
         except ValueError:
             return False
 
+        def question8():
+            """
+            System of differential equation (homogeneous)
+            """
+
+            a = random.randint(-10, 10)
+            b = random.randint(-10, 10)
+            c = random.randint(-10, 10)
+            d = random.randint(-10, 10)
+
+            IC1 = random.randint(-10, 10)
+            IC2 = random.randint(-10, 10)
+
+            x_at_time = random.randint(-2, 2)
+            y_at_time = random.randint(-2, 2)
+            
         
 def handle_question(question):
     question_map = {
