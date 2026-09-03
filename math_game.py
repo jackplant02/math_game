@@ -537,7 +537,7 @@ while True:
     if selection == 'q':
         break
 
-    done_index = 6
+    done_index = 7
 
     if selection.isdigit() and int(selection) in range(1, done_index + 1):
         handle_question(int(selection))
