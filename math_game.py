@@ -94,22 +94,16 @@ class Polynomial:
 
 
     def evaluate_polynomial_integral(self, a, b):
-
+        """
+        Evaluates the definite integral of this polynomial from a to b.
+        """
         sum = 0
 
         for i in range(len(Polynomial.coefficient_list)):
             power = len(Polynomial.coefficient_list) - i - 1
-            if power == 0:
-                term1 = Polynomial.coefficient_list[i]
-            else:
-                term1 = Polynomial.coefficient_list[i] / power * (a ** power)
-            
-            if power == 0:
-                term2 = Polynomial.coefficient_list[i]
-            else:
-                term2 = Polynomial.coefficient_list[i] / power * (b ** power)
-            
-            term = term1 + term2
+            coeff = Polynomial.coefficient_list[i]
+
+            term = coeff / (power + 1) * (b ** (power + 1) - a ** (power + 1))
             sum += term
 
         return sum
@@ -438,7 +432,7 @@ class Questions:
 
         print(f"\nf(x) = {f}")
         print(f"g(x) = {g}")
-        print(f"Calculate the area enclosed within f(x), g(x), x = {bound1}, and x = {bound2}.")
+        print(f"\nCalculate the enclosed area between f(x) and g(x) from x = {bound1} to x = {bound2}.")
         print("Enter your answer to 3 decimal places.\n")
 
         try:
