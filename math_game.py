@@ -266,7 +266,7 @@ class Questions:
         print('If no real solutions exist, type "N/A".\n')
 
         if D < 0 and a != 0:
-            if input().lower() == "n/a":
+            if input().lower().strip() == "n/a":
                 return True
 
         elif a == 0:
@@ -311,10 +311,10 @@ class Questions:
 
         seed_for_x = random.randint(-20, 20)
 
-        print(f"\nEvaluate the first derivative of {Polynomial.get_polynomial(dev_poly)} at x = {seed_for_x}.\n")
+        answer = input(f"\nEvaluate the first derivative of {Polynomial.get_polynomial(dev_poly)} at x = {seed_for_x}: ").strip()
 
         try:
-            if int(input().strip()) == Polynomial.evaluate_polynomial_derivative(dev_poly, seed_for_x):
+            if int(answer) == Polynomial.evaluate_polynomial_derivative(dev_poly, seed_for_x):
                 return True
             else:
                 return False
@@ -340,110 +340,69 @@ class Questions:
         vector1 = "<" + ", ".join(str(item) for item in list1) + ">"
         vector2 = "<" + ", ".join(str(item) for item in list2) + ">"
 
-        print(f"\nCompute the dot product of the vectors {vector1} and {vector2}.\n")
+        answer = input(f"\nCompute the dot product of the vectors {vector1} and {vector2}: ").strip()
 
         try:
-            if input().strip() == str(product):
+            if int(answer) == product:
                 return True
         except ValueError:
             return False
 
-        return False        
+        return False
 
     def question6():
-        cos_coeff = random.randint(-5, 5)
-        sin_coeff = random.randint(-5, 5)
-        cos_arg = random.randint(1, 10)
-        sin_arg = random.randint(1, 10)
+        a1 = random.randint(-3, 3)
+        b1 = random.randint(-21, 21)
+        c1 = random.randint(-10, 10)
 
-        cos_string = ""
-        sin_string = ""
+        # quad1 = Polynomial.set_polynomial(c1, b1, a1, 0, 0, 0)
 
-        a = random.randint(-10, 10)
-        b = random.randint(-10, 10)
-        c = random.randint(-10, 10)
-        d = random.randint(-10, 10)
+        a2 = random.randint(-3, 3)
+        b2 = random.randint(-21, 21)
+        c2 = random.randint(-10, 10)
 
-        while a == 0 and b == 0 and c == 0 and d == 0:
-            d = random.randint(-10, 10)
+        # quad2 = Polynomial.set_polynomial(c2, b2, a2, 0, 0, 0)
 
-        q6_poly = Polynomial.set_polynomial(d, c, b, a, 0, 0)
+        a_combo = a1 - a2
+        b_combo = b1 - b2
+        c_combo = c1 - c2
 
-        bound1 = random.randint(-10, 10)
-        bound2 = random.randint(bound1, 10)
+        D = b_combo ** 2 - 4. * a_combo * c_combo
 
-        if cos_coeff != 0:
-            if cos_arg != 1:
-                cos_string = f"{cos_coeff}cos({cos_arg}x) + "
+        if D < 0 and a_combo != 0:
+            ans = 0
+
+        elif a_combo == 0:
+            ans = 0
+
+        else:
+            root1 = (-b_combo + math.sqrt(D)) / (2 * a_combo)
+            root2 = (-b_combo - math.sqrt(D)) / (2 * a_combo)
+
+            if root1 == root2:
+                ans = 0
             else:
-                cos_string = f"{cos_coeff}cos(x) + "
+                quad_combo = Polynomial.set_polynomial(c_combo, b_combo, a_combo, 0, 0, 0)
+                ans = abs(round(Polynomial.evaluate_polynomial_integral(quad_combo, root1, root2), 3))
 
-        if sin_coeff != 0:
-            if sin_arg != 1:
-                sin_string = f"{sin_coeff}sin({sin_arg}x) + "
-            else:
-                sin_string = f"{sin_coeff}sin(x) + "
-
-
-        f = cos_string + sin_string + Polynomial.get_polynomial(q6_poly)
-        f = f.replace("+ -", "- ")
-        ICos = (1.0 / cos_arg) * cos_coeff * (math.sin(cos_arg * bound2) - math.sin(cos_arg * bound1))
-        ISin = (1.0 / sin_arg) * sin_coeff * (math.cos(sin_arg * bound1) - math.cos(sin_arg * bound2))
-
-        fIntegral = Polynomial.evaluate_polynomial_integral(q6_poly, bound1, bound2) + ICos + ISin
-
-        cos_coeff = random.randint(-5, 5)
-        sin_coeff = random.randint(-5, 5)
-        cos_arg = random.randint(1, 10)
-        sin_arg = random.randint(1, 10)
-
-        cos_string = ""
-        sin_string = ""
-
-        a = random.randint(-10, 10)
-        b = random.randint(-10, 10)
-        c = random.randint(-10, 10)
-        d = random.randint(-10, 10)
-
-        while a == 0 and b == 0 and c == 0 and d == 0:
-            d = random.randint(-10, 10)
-
-        new_polynomial = Polynomial.set_polynomial(d, c, b, a, 0, 0)
-
-        if cos_coeff != 0:
-            if cos_arg != 1:
-                cos_string = f"{cos_coeff}cos({cos_arg}x) + "
-            else:
-                cos_string = f"{cos_coeff}cos(x) + "
-
-        if sin_coeff != 0:
-            if sin_arg != 1:
-                sin_string = f"{sin_coeff}sin({sin_arg}x) + "
-            else:
-                sin_string = f"{sin_coeff}sin(x) + "
-
-        g = cos_string + sin_string + Polynomial.get_polynomial(new_polynomial)
-        g = g.replace("+ -", "- ")
-        ICos = (1.0 / cos_arg) * cos_coeff * (math.sin(cos_arg * bound2) - math.sin(cos_arg * bound1))
-        ISin = (1.0 / sin_arg) * sin_coeff * (math.cos(sin_arg * bound1) - math.cos(sin_arg * bound2))
-        gIntegral = Polynomial.evaluate_polynomial_integral(new_polynomial, bound1, bound2) + ICos + ISin
-
-        ans = abs(fIntegral - gIntegral)
-
+        quad1 = Polynomial.set_polynomial(c1, b1, a1, 0, 0, 0)
+        f = Polynomial.get_polynomial(quad1)
         print(f"\nf(x) = {f}")
-        print(f"g(x) = {g}")
-        print(f"\nCalculate the enclosed area between f(x) and g(x) from x = {bound1} to x = {bound2}.")
-        print("Enter your answer to 3 decimal places.\n")
+
+        quad2 = Polynomial.set_polynomial(c2, b2, a2, 0, 0, 0)
+        g = Polynomial.get_polynomial(quad2)
+        print(f"g(x) = {g}\n")
+
+        print("Calculate the enclosing area between f(x) and g(x).")
+        answer = input("Enter your answer to 3 decimal places: ").strip()
 
         try:
-            if round(ans, 3) == round(float(input()), 3):
+            if round(float(answer), 3) == round(ans, 3):
                 return True
-
         except ValueError:
-            return False
+            pass
 
-
-        return False        
+        return False  
 
 
         
