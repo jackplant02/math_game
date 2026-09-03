@@ -481,9 +481,35 @@ class Questions:
         print(f"Compute the directional derivative of f(x, y) at the point ({x}, {y})\nin the direction opposite to the vector <{-d1}, {-d2}>.")
         answer = input("Enter your answer to 3 decimal places: ")
 
+        # find x derivative
 
+        e_deriv_x = e_coeff * (math.e ** (e_arg * y))
+        cos_deriv_x = -cos_coeff * cos_arg * math.sin(cos_arg * x)
+        xy_deriv_x = xy_coeff * y
+        deriv_x = e_deriv_x + cos_deriv_x + xy_deriv_x + x_poly_derivative
 
+        # find y derivative
+        e_deriv_y = e_coeff * x * e_arg * math.e ** (e_arg * y)
+        sin_deriv_y = sin_coeff * sin_arg * math.cos(sin_arg * y)
+        xy_deriv_y = xy_coeff * x
+        deriv_y = e_deriv_y + sin_deriv_y + xy_deriv_y + y_poly_derivative
 
+        # find unit vector
+
+        mag = math.sqrt(d2 ** 2 + d2 ** 2)
+        u1 = d1 / mag
+        u2 = d2 / mag
+
+        # dot product
+        correct = deriv_x * u1 + deriv_y * u2
+
+        try:
+            if round(float(answer), 3) == round(correct, 3):
+                return True
+            else:
+                return False
+        except ValueError:
+            return False
 
         
 def handle_question(question):
