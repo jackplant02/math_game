@@ -404,6 +404,86 @@ class Questions:
 
         return False  
 
+    def question7():
+        """
+        Directional derivative.
+        """
+
+        e_coeff = random.randint(-5, 5)
+        e_arg = random.randint(1, 5)
+
+        cos_coeff = random.randint(-5, 5)
+        sin_coeff = random.randint(-5, 5)
+
+        cos_arg = random.randint(1, 10)
+        sin_arg = random.randint(1, 10)
+
+        xy_coeff = random.randint(-10, 10)
+
+        x0 = random.randint(-5, 5)
+        x1 = random.randint(-5, 5)
+        y1 = random.randint(-5, 5)
+        x2 = random.randint(-5, 5)
+        y2 = random.randint(-5, 5)
+
+        while x0 == 0 and x1 == 0 and x2 == 0:
+            x2 = random.randint(-10, 10)
+
+        while y1 == 0 and y2 == 0:
+            y2 = random.randint(-10, 10)
+
+        d1 = random.randint(-5, 5)
+        d2 = random.randint(-5, 5)
+
+        x = random.randint(-5, 5)
+        y = random.randint(-5, 5)
+
+        e_string = ""
+        cos_string = ""
+        sin_string = ""
+        xy_string = ""
+
+        if e_coeff != 0:
+            if e_arg != 1:
+                e_string = f"({e_coeff})xe^({e_arg}y) + "
+
+            else:
+                e_string = f"({e_coeff})xe^(y) + "
+
+        if cos_coeff != 0:
+            if cos_arg != 1:
+                cos_string = f"{cos_coeff}cos({cos_arg}x) + "
+            else:
+                cos_string = f"{cos_coeff}cos(x) + "
+
+        if sin_coeff != 0:
+            if sin_arg != 1:
+                sin_string = f"{sin_coeff}sin({sin_arg}x) + "
+            else:
+                sin_string = f"{sin_coeff}sin(x) + "
+
+        if xy_coeff != 0
+            xy_string = f"{xy_coeff}xy + "
+
+        # do all polynomial stuff here
+        set_x_poly = Polynomial.set_polynomial(x0, x1, x2, 0, 0, 0)
+        x_poly = Polynomial.get_polynomial(set_x_poly)
+        x_poly_derivative = Polynomial.evaluate_polynomial_derivative(set_x_poly, x)
+
+        set_y_poly = Polynomial.set_polynomial(0, y1, y2, 0, 0, 0)
+        y_poly = Polynomial.get_polynomial(set_y_poly)
+
+        y_poly = y_poly.replace('x', 'y')
+
+        y_poly_derivative = Polynomial.evaluate_polynomial_derivative(set_y_poly, y)
+
+        print("\nConsider the function f(x, y) = " + e_string + cos_string + sin_string + xy_string + y_poly + " + " + x_poly)
+        print(f"Compute the directional derivative of f(x, y) at the point ({x}, {y})\nin the direction opposite to the vector <{-d1}, {-d2}>.")
+        answer = input("Enter your answer to 3 decimal places: ")
+
+
+
+
 
         
 def handle_question(question):
