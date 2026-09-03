@@ -445,10 +445,10 @@ class Questions:
 
         if e_coeff != 0:
             if e_arg != 1:
-                e_string = f"({e_coeff})xe^({e_arg}y) + "
+                e_string = f"{e_coeff}xe^({e_arg}y) + "
 
             else:
-                e_string = f"({e_coeff})xe^(y) + "
+                e_string = f"{e_coeff}xe^(y) + "
 
         if cos_coeff != 0:
             if cos_arg != 1:
@@ -478,8 +478,10 @@ class Questions:
         y_poly_derivative = Polynomial.evaluate_polynomial_derivative(set_y_poly, y)
 
         q7_text = "\nConsider the function f(x, y) = " + e_string + cos_string + sin_string + xy_string + y_poly + x_poly
+        q7_text = q7_text.replace("1x", "x")
+        q7_text = q7_text.replace("1c", "c")
+        q7_text = q7_text.replace("1s", "s")
         q7_text = q7_text.replace("+ -", "- ")
-        q7_text = q7_text.replace("(1)", "")
         print(q7_text)
         print(f"Compute the directional derivative of f(x, y) at the point ({x}, {y})\nin the direction opposite to the vector <{-d1}, {-d2}>.")
         answer = input("Enter your answer to 3 decimal places: ")
