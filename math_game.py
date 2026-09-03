@@ -477,7 +477,10 @@ class Questions:
 
         y_poly_derivative = Polynomial.evaluate_polynomial_derivative(set_y_poly, y)
 
-        print("\nConsider the function f(x, y) = " + e_string + cos_string + sin_string + xy_string + y_poly + " + " + x_poly)
+        q7_text = "\nConsider the function f(x, y) = " + e_string + cos_string + sin_string + xy_string + y_poly + x_poly
+        q7_text = q7_text.replace("+ -", "- ")
+        q7_text = q7_text.replace("(1)", "")
+        print(q7_text)
         print(f"Compute the directional derivative of f(x, y) at the point ({x}, {y})\nin the direction opposite to the vector <{-d1}, {-d2}>.")
         answer = input("Enter your answer to 3 decimal places: ")
 
@@ -496,7 +499,7 @@ class Questions:
 
         # find unit vector
 
-        mag = math.sqrt(d2 ** 2 + d2 ** 2)
+        mag = math.sqrt(d1 ** 2 + d2 ** 2)
         u1 = d1 / mag
         u2 = d2 / mag
 
