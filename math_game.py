@@ -1,6 +1,7 @@
 import random
 import cmath
 import math
+import numpy as np
 
 # Initialize score and done bools
 
@@ -516,22 +517,88 @@ class Questions:
         except ValueError:
             return False
 
-        def question8():
-            """
-            System of differential equation (homogeneous)
-            """
+    def question8():
+        """
+        System of differential equation (homogeneous)
+        """
 
-            a = random.randint(-10, 10)
-            b = random.randint(-10, 10)
-            c = random.randint(-10, 10)
-            d = random.randint(-10, 10)
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        c = random.randint(-10, 10)
+        d = random.randint(-10, 10)
 
-            IC1 = random.randint(-10, 10)
-            IC2 = random.randint(-10, 10)
+        IC1 = random.randint(-10, 10)
+        IC2 = random.randint(-10, 10)
 
-            x_at_time = random.randint(-2, 2)
+        x_at_time = random.randint(-2, 2)
+        y_at_time = random.randint(-2, 2)
+
+        while x_at_time == 0 and y_at_time == 0:
             y_at_time = random.randint(-2, 2)
+
+        mat = Matrix(a, b, c, d)
+        eigenvalues = mat.find_lambda()
+
+        lambda1 = eigenvalues[0]
+        lambda2 = eigenvalues[1]
+
+        # A is diagonal
+        if lambda1 == lambda2 and a == d and b == 0 and c == 0:
+
+            def xOft(t):
+                return IC1 * math.e ** (lambda1.real * t)
+
+            def yOft(t):
+                return IC2 * math.e ** (lambda2.real * t)
+
+        # real and distinct
+        elif lambda1.imag == 0 and lambda2.imag == 0 and lambda1 != lambda2:
+            vector1 = mat.find_real_eigenvector(lambda1)
+            vector2 = mat.find_real_eigenvector(lambda2)
+
+            if vector1[0] != 0:
+                c2 = (IC2 - vector1[1] * IC2 / vector1[0]) / (vector2[1] - vector2[0] * vector1[1] / vector1[0])
+                c1 = (IC1 - c2 * vector2[0]) / vector1[0]
+
+            else:
+                c2 = IC1 / vector2[0]
+                c1 = (IC2 - c2 * vector2[1] / vector1[1])
+
+            def xOft(t):
+                return c1 * math.e ** (lambda1.real * t) * vector1[0] + c2 * math.e ** (lambda2.real * t) * vector2[0]
+
+            def yOft(t):
+                return c1 * math.e ** (lambda1.real * t) * vector1[1] + c2 * math.e ** (lambda2.real * t) * vector2[1]
+
+        # repeated, A is not diagonal
+        else:
+            v = mat.find_real_eigenvector(lambda1)
+            u = mat.find_generalized_eigenvector(lambda2, v)
+
+            if(v[0] != 0):
+                c2 = (IC2 - v[1] * IC1 / v[0]) / (u[1] - u[0] * v[1] / v[0])
+                c1 = (IC1 - c2 * u[0]) / v[0]
+
+            else:
+                c2 = IC1 / u[0]
+                c1 = (IC2 - c2 * u[1]) / v[1]
+
+            l = lambda1.real
+            def xOft(t):
+                return c1 * v[0] * math.e ** (l * t) + c2 * math.e ** (l * t) * (v[0] * t * u[0])
+
+            def yOft(t):
+                return c1 * v[1] * math.e ** (l * t) + c2 * math.e ** (l * t) * (v[1] * t * u[1])
+
+        correct1 = xOft(x_at_time)
+        correct2 = yOft(y_at_time) 
+
+        if math.abs(correct1) >= 10000 or math.abs(correct2) >= 10000 or np.isnan(correct1) or np.isnan(correct2)
             
+            
+
+
+
         
 def handle_question(question):
     question_map = {
