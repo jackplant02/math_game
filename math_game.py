@@ -593,11 +593,74 @@ class Questions:
         correct1 = xOft(x_at_time)
         correct2 = yOft(y_at_time) 
 
-        if math.abs(correct1) >= 10000 or math.abs(correct2) >= 10000 or np.isnan(correct1) or np.isnan(correct2)
-            
-            
+        if abs(correct1) >= 10000 or abs(correct2) >= 10000 or np.isnan(correct1) or np.isnan(correct2) \
+        or math.isinf(correct1) or math.isinf(correct2):
+            return Questions.question8()
 
+        question_string = "\nEnter your answers to 3 decimal places.\n"
+        question_string += "x'(t) = "
 
+        # handle a and b conditions
+        if a == 0 and b == 0:
+            question_string += "0"
+
+        elif a == 0:
+            question_string += f"{b}y(t)"
+
+        elif b == 0:
+            question_string += f"{a}x(t)"
+
+        elif b < 0:
+            question_string += f"{a}x(t) - {-b}y(t)"
+
+        else:
+            question_string += f"{a}x(t) + {b}y(t)"
+
+        question_string += f"\ny'(t) = "
+
+        # handle c and d conditions
+        if c == 0 and d == 0:
+            question_string += "0"
+
+        elif c == 0:
+            question_string += f"{d}y(t)"
+
+        elif d == 0:
+            question_string += f"{c}x(t)"
+
+        elif d < 0:
+            question_string += f"{c}x(t) - {-d}y(t)"
+
+        else:
+            question_string += f"{c}x(t) + {d}y(t)"
+
+        question_string += "\n"
+        question_string = question_string.replace("1", "")
+
+        print(question_string)
+
+        print(f"x(0) = {IC1}")
+        print(f"y(0) = {IC2}")
+
+        print(f"\nx({x_at_time}) = ")
+
+        try:
+            if round(float(input()), 3) != math.round(correct1, 3):
+                return False
+
+        except ValueError:
+            return False
+
+        print(f"y({y_at_time}) = ")
+
+        try:
+            if round(float(input()), 3) != math.round(correct2, 3):
+                return False
+
+        except ValueError:
+            return False
+
+        return True       
 
         
 def handle_question(question):
