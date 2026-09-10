@@ -6,3 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "mathquiz"
 version = "0.1.0"
 dependencies = ["numpy"]
+
+[project.scripts]
+mathquiz = "mathquiz.math_game:main"
+
+[project.optional-dependencies]
+dev = ["pytest", "pyinstaller"]
