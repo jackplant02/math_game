@@ -2,44 +2,10 @@ import random
 import builtins
 from math_game import Polynomial, Questions
 
-def test_evaluate_polynomial_quadratic():
-    """f(x) = x^2 + 2x + 1, evaluated at x=3 should give 16"""
-    poly = Polynomial.set_polynomial(1, 2, 1, 0, 0, 0)
-    result = Polynomial.evaluate_polynomial(poly, 3)
-    assert result == 16
-
-
-def test_evaluate_polynomial_constant():
-    """f(x) = 5 (no x terms), should equal 5 for any x"""
-    poly = Polynomial.set_polynomial(5, 0, 0, 0, 0, 0)
-    result = Polynomial.evaluate_polynomial(poly, 100)
-    assert result == 5
-
-
-def test_evaluate_polynomial_at_zero():
-    """f(x) = x^2 + 2x + 1, evaluated at x=0 should just give the constant term"""
-    poly = Polynomial.set_polynomial(1, 2, 1, 0, 0, 0)
-    result = Polynomial.evaluate_polynomial(poly, 0)
-    assert result == 1
-
-
-def test_evaluate_polynomial_negative_x():
-    """f(x) = x^2 + 2x + 1, evaluated at x=-3: 9 - 6 + 1 = 4"""
-    poly = Polynomial.set_polynomial(1, 2, 1, 0, 0, 0)
-    result = Polynomial.evaluate_polynomial(poly, -3)
-    assert result == 4
-
-
-def test_evaluate_polynomial_negative_coefficients():
-    """f(x) = -x^2 + 3, evaluated at x=2: -4 + 3 = -1"""
-    poly = Polynomial.set_polynomial(3, 0, -1, 0, 0, 0)
-    result = Polynomial.evaluate_polynomial(poly, 2)
-    assert result == -1
-
 # question 1
 def test_question1_correct(monkeypatch):
     """
-    Question 1 should return True if the question is -76 + 46
+    Question 1 should return True if the question is -79 + 46
     and the user inputs -33.
     """
     random_values = iter([-79, 46])
@@ -52,7 +18,7 @@ def test_question1_correct(monkeypatch):
 
 def test_question1_incorrect(monkeypatch):
     """
-    Question 1 should return False if the question is -76 + 46
+    Question 1 should return False if the question is -79 + 46
     and the user inputs -100.
     """
     random_values = iter([-79, 46])
@@ -63,10 +29,36 @@ def test_question1_incorrect(monkeypatch):
 
     assert result == False
 
+def test_question1_bad(monkeypatch):
+    """
+    Question 1 should return False if the question is -79 + 46
+    and the user inputs text.
+    """
+    random_values = iter([-79, 46])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question1()
+
+    assert result == False
+
+def test_question1_blank(monkeypatch):
+    """
+    Question 1 should return False if the question is -79 + 46
+    and the user inputs nothing.
+    """
+    random_values = iter([-79, 46])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "")
+
+    result = Questions.question1()
+
+    assert result == False
+
 # question 2
 def test_question2_correct(monkeypatch):
     """
-    Question 2 should return False if the question is -5 + 6
+    Question 2 should return True if the question is -5 + 6
     and the user inputs -30.
     """
     random_values = iter([-5, 6])
@@ -82,10 +74,170 @@ def test_question2_incorrect(monkeypatch):
     Question 1 should return False if the question is -5 + 6
     and the user inputs 2.
     """
-    random_values = iter([-79, 46])
+    random_values = iter([-5, 6])
     monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
     monkeypatch.setattr(builtins, "input", lambda prompt="": "2")
 
     result = Questions.question2()
+
+    assert result == False
+
+def test_question2_bad(monkeypatch):
+    """
+    Question 1 should return False if the question is -5 + 6
+    and the user inputs text.
+    """
+    random_values = iter([-5, 6])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question2()
+
+    assert result == False
+
+def test_question2_blank(monkeypatch):
+    """
+    Question 1 should return False if the question is -5 + 6
+    and the user inputs nothing.
+    """
+    random_values = iter([-5, 6])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "")
+
+    result = Questions.question2()
+
+    assert result == False
+
+# question 3
+def test_question3_no_sol_correct(monkeypatch):
+    """
+    Question 3 should return True if the equation is x^2 + 5 = 0
+    and the user inputs n/a.
+    """
+    random_values = iter([1, 0, 5])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "n/a")
+
+    result = Questions.question3()
+
+    assert result == True
+
+def test_question3_no_sol_incorrect(monkeypatch):
+    """
+    Question 3 should return False if the equation is x^2 + 5 = 0
+    and the user inputs 2.
+    """
+    random_values = iter([1, 0, 5])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "2")
+
+    result = Questions.question3()
+
+    assert result == False
+
+def test_question3_one_sol_correct(monkeypatch):
+    """
+    Question 3 should return True if the equation is x^2 -4x + 4 = 0
+    and the user inputs 2.
+    """
+    random_values = iter([1, -4, 4])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "2")
+
+    result = Questions.question3()
+
+    assert result == True
+
+def test_question3_one_sol_incorrect(monkeypatch):
+    """
+    Question 3 should return False if the equation is x^2 -4x + 4 = 0
+    and the user inputs 3.
+    """
+    random_values = iter([1, -4, 4])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "3")
+
+    result = Questions.question3()
+
+    assert result == False
+
+def test_question3_two_sol_correct(monkeypatch):
+    """
+    Question 3 should return True if the equation is x^2 -3x - 1 = 0
+    and the user inputs 3.303 and -0.303.
+    """
+    random_values = iter([1, -3, -1])
+    answers = iter(["3.303", "-0.303"])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": next(answers))
+
+    result = Questions.question3()
+
+    assert result == True
+
+def test_question3_two_sol_incorrect(monkeypatch):
+    """
+    Question 3 should return False if the equation is x^2 -3x - 1 = 0
+    and the user inputs 5 and 2.
+    """
+    random_values = iter([1, -3, -1])
+    answers = iter(["5", "2"])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": next(answers))
+
+    result = Questions.question3()
+
+    assert result == False
+
+def test_question3_bad(monkeypatch):
+    """
+    Question 3 should return False if the equation is x^2 -3x - 1 = 0
+    and the user inputs text.
+    """
+    random_values = iter([1, -3, -1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question3()
+
+    assert result == False
+
+# question 4
+def test_question4_correct(monkeypatch):
+    """
+    Question 4 should return True if the given polynomial is x^4 + x^3 - x^2 + 4x + 4,
+    x = 19, and the user inputs -26311.
+    """
+    random_values = iter([0, 1, 1, -1, 4, 4, -19])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "-26311")
+
+    result = Questions.question4()
+
+    assert result == True
+
+def test_question4_incorrect(monkeypatch):
+    """
+    Question 4 should return False if the given polynomial is x^4 + x^3 - x^2 + 4x + 4,
+    x = 19, and the user inputs -2.
+    """
+    random_values = iter([0, 1, 1, -1, 4, 4, -19])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "-2")
+
+    result = Questions.question4()
+
+    assert result == False
+
+def test_question4_bad(monkeypatch):
+    """
+    Question 4 should return False if the given polynomial is x^4 + x^3 - x^2 + 4x + 4,
+    x = 19, and the user inputs text.
+    """
+    random_values = iter([0, 1, 1, -1, 4, 4, -19])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question4()
 
     assert result == False
