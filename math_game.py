@@ -1,6 +1,7 @@
 import random
 import cmath
 import math
+import numpy as np
 
 # Initialize score and done bools
 
@@ -448,7 +449,7 @@ class Questions:
                 e_string = f"{e_coeff}xe^({e_arg}y) + "
 
             else:
-                e_string = f"{e_coeff}xe^(y) + "
+                e_string = f"{e_coeff}xe^y + "
 
         if cos_coeff != 0:
             if cos_arg != 1:
@@ -516,6 +517,151 @@ class Questions:
         except ValueError:
             return False
 
+    def question8():
+        """
+        System of differential equation (homogeneous)
+        """
+
+        a = random.randint(-10, 10)
+        b = random.randint(-10, 10)
+        c = random.randint(-10, 10)
+        d = random.randint(-10, 10)
+
+        IC1 = random.randint(-10, 10)
+        IC2 = random.randint(-10, 10)
+
+        x_at_time = random.randint(-2, 2)
+        y_at_time = random.randint(-2, 2)
+
+        while x_at_time == 0 and y_at_time == 0:
+            y_at_time = random.randint(-2, 2)
+
+        mat = Matrix(a, b, c, d)
+        eigenvalues = mat.find_lambda()
+
+        lambda1 = eigenvalues[0]
+        lambda2 = eigenvalues[1]
+
+        # A is diagonal
+        if lambda1 == lambda2 and a == d and b == 0 and c == 0:
+
+            def xOft(t):
+                return IC1 * math.e ** (lambda1.real * t)
+
+            def yOft(t):
+                return IC2 * math.e ** (lambda2.real * t)
+
+        # real and distinct
+        elif lambda1.imag == 0 and lambda2.imag == 0 and lambda1 != lambda2:
+            vector1 = mat.find_real_eigenvector(lambda1)
+            vector2 = mat.find_real_eigenvector(lambda2)
+
+            if vector1[0] != 0:
+                c2 = (IC2 - vector1[1] * IC2 / vector1[0]) / (vector2[1] - vector2[0] * vector1[1] / vector1[0])
+                c1 = (IC1 - c2 * vector2[0]) / vector1[0]
+
+            else:
+                c2 = IC1 / vector2[0]
+                c1 = (IC2 - c2 * vector2[1] / vector1[1])
+
+            def xOft(t):
+                return c1 * math.e ** (lambda1.real * t) * vector1[0] + c2 * math.e ** (lambda2.real * t) * vector2[0]
+
+            def yOft(t):
+                return c1 * math.e ** (lambda1.real * t) * vector1[1] + c2 * math.e ** (lambda2.real * t) * vector2[1]
+
+        # repeated, A is not diagonal
+        else:
+            v = mat.find_real_eigenvector(lambda1)
+            u = mat.find_generalized_eigenvector(lambda2, v)
+
+            if(v[0] != 0):
+                c2 = (IC2 - v[1] * IC1 / v[0]) / (u[1] - u[0] * v[1] / v[0])
+                c1 = (IC1 - c2 * u[0]) / v[0]
+
+            else:
+                c2 = IC1 / u[0]
+                c1 = (IC2 - c2 * u[1]) / v[1]
+
+            l = lambda1.real
+            def xOft(t):
+                return c1 * v[0] * math.e ** (l * t) + c2 * math.e ** (l * t) * (v[0] * t * u[0])
+
+            def yOft(t):
+                return c1 * v[1] * math.e ** (l * t) + c2 * math.e ** (l * t) * (v[1] * t * u[1])
+
+        correct1 = xOft(x_at_time)
+        correct2 = yOft(y_at_time) 
+
+        if abs(correct1) >= 10000 or abs(correct2) >= 10000 or np.isnan(correct1) or np.isnan(correct2) \
+        or math.isinf(correct1) or math.isinf(correct2):
+            return Questions.question8()
+
+        question_string = "\nSolve the following initial value problem. Enter your answers to 3 decimal places.\n\n"
+        question_string += "x'(t) = "
+
+        # handle a and b conditions
+        if a == 0 and b == 0:
+            question_string += "0"
+
+        elif a == 0:
+            question_string += f"{b}y(t)"
+
+        elif b == 0:
+            question_string += f"{a}x(t)"
+
+        elif b < 0:
+            question_string += f"{a}x(t) - {-b}y(t)"
+
+        else:
+            question_string += f"{a}x(t) + {b}y(t)"
+
+        question_string += f"\ny'(t) = "
+
+        # handle c and d conditions
+        if c == 0 and d == 0:
+            question_string += "0"
+
+        elif c == 0:
+            question_string += f"{d}y(t)"
+
+        elif d == 0:
+            question_string += f"{c}x(t)"
+
+        elif d < 0:
+            question_string += f"{c}x(t) - {-d}y(t)"
+
+        else:
+            question_string += f"{c}x(t) + {d}y(t)"
+
+        question_string += "\n"
+        question_string = question_string.replace("1", "")
+
+        print(question_string)
+
+        print(f"x(0) = {IC1}")
+        print(f"y(0) = {IC2}")
+
+        answer1 = input(f"\nx({x_at_time}) = ")
+
+        try:
+            if round(float(answer1), 3) != round(correct1, 3):
+                return False
+
+        except ValueError:
+            return False
+
+        answer2 = input(f"y({y_at_time}) = ")
+
+        try:
+            if round(float(answer2), 3) != round(correct2, 3):
+                return False
+
+        except ValueError:
+            return False
+
+        return True       
+
         
 def handle_question(question):
     question_map = {
@@ -542,7 +688,7 @@ while True:
     if selection == 'q':
         break
 
-    done_index = 7
+    done_index = 8
 
     if selection.isdigit() and int(selection) in range(1, done_index + 1):
         handle_question(int(selection))
