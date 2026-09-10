@@ -282,3 +282,204 @@ def test_question5_bad(monkeypatch):
 
     assert result == False
 
+# question 6
+
+# correct answer, 2 intercepts
+def test_question6_two_intercepts_correct(monkeypatch):
+    """
+    Question 6 should return True if the given curves are 2x^2 + 5x - 3 and
+    x^2 + 2x + 1 and the user inputs 20.833.
+    """
+    random_values = iter([2, 5, -3, 1, 2, 1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "20.833")
+
+    result = Questions.question6()
+
+    assert result == True
+
+# incorrect answer, 2 intercepts
+def test_question6_two_intercepts_incorrect(monkeypatch):
+    """
+    Question 6 should return False if the given curves are 2x^2 + 5x - 3 and
+    x^2 + 2x + 1 and the user inputs 2.
+    """
+    random_values = iter([2, 5, -3, 1, 2, 1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "2")
+
+    result = Questions.question6()
+
+    assert result == False
+
+# bad answer, 2 intercept
+def test_question6_two_intercepts_bad(monkeypatch):
+    """
+    Question 6 should return False if the given curves are 2x^2 + 5x - 3 and
+    x^2 + 2x + 1 and the user inputs text.
+    """
+    random_values = iter([2, 5, -3, 1, 2, 1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question6()
+
+    assert result == False
+
+# correct answer, 1 intercept
+def test_question6_one_intercept_correct(monkeypatch):
+    """
+    Question 6 should return True if the given curves are x^2 and
+    -x^2 and the user inputs 0.
+    """
+    random_values = iter([1, 0, 0, -1, 0, 0])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "0")
+
+    result = Questions.question6()
+
+    assert result == True
+
+# incorrect answer, 1 intercept
+def test_question6_one_intercept_incorrect(monkeypatch):
+    """
+    Question 6 should return False if the given curves are x^2 and
+    -x^2 and the user inputs 1.
+    """
+    random_values = iter([1, 0, 0, -1, 0, 0])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "1")
+
+    result = Questions.question6()
+
+    assert result == False
+
+# bad answer, 1 intercept
+def test_question6_one_intercept_bad(monkeypatch):
+    """
+    Question 6 should return False if the given curves are x^2 + 1 and
+    -x^2 + 1 and the user inputs text.
+    """
+    random_values = iter([1, 0, 1, -1, 0, 1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question6()
+
+    assert result == False
+
+# correct answer, no intercepts
+def test_question6_no_intercept_correct(monkeypatch):
+    """
+    Question 6 should return True if the given curves are x^2 and
+    -x^2 - 1 and the user inputs 0.
+    """
+    random_values = iter([1, 0, 0, -1, 0, -1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "0")
+
+    result = Questions.question6()
+
+    assert result == True
+
+# incorrect answer, no intercepts
+def test_question6_no_intercept_incorrect(monkeypatch):
+    """
+    Question 6 should return False if the given curves are x^2 and
+    -x^2 - 1 and the user inputs 25.
+    """
+    random_values = iter([1, 0, 0, -1, 0, -1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "25")
+
+    result = Questions.question6()
+
+    assert result == False
+
+# bad answer, no intercepts
+def test_question6_no_intercept_bad(monkeypatch):
+    """
+    Question 6 should return False if the given curves are x^2 and
+    -x^2 - 1 and the user inputs text.
+    """
+    random_values = iter([1, 0, 0, -1, 0, -1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question6()
+
+    assert result == False
+
+# question 7
+def test_question_7_full_equation_correct(monkeypatch):
+    """
+    For the following version of Question 7, the function should return 
+    True if the user inputs 4.
+
+    Question:
+        Consider the function f(x, y) = 2xe^y + cos(x) + sin(x) + 3xy + y^2 + y + x^2 + 2x + 1
+        Compute the directional derivative of f(x, y) at the point (0, 0)
+        in the direction opposite to the vector <-3, -4>.
+    """
+    random_values = iter([2, 1, 1, 1, 1, 1, 3, 1, 2, 1, 1, 1, 3, 4, 0, 0])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "4")
+
+    result = Questions.question7()
+
+    assert result == True
+
+def test_question_7_full_equation_incorrect(monkeypatch):
+    """
+    For the following version of Question 7, the function should return 
+    False if the user inputs 4.001.
+
+    Question:
+        Consider the function f(x, y) = 2xe^y + cos(x) + sin(x) + 3xy + y^2 + y + x^2 + 2x + 1
+        Compute the directional derivative of f(x, y) at the point (0, 0)
+        in the direction opposite to the vector <-3, -4>.
+    """
+    random_values = iter([2, 1, 1, 1, 1, 1, 3, 1, 2, 1, 1, 1, 3, 4, 0, 0])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "4.001")
+
+    result = Questions.question7()
+
+    assert result == False
+
+def test_question_7_full_equation_bad(monkeypatch):
+    """
+    For the following version of Question 7, the function should return 
+    False if the user inputs text.
+
+    Question:
+        Consider the function f(x, y) = 2xe^y + cos(x) + sin(x) + 3xy + y^2 + y + x^2 + 2x + 1
+        Compute the directional derivative of f(x, y) at the point (0, 0)
+        in the direction opposite to the vector <-3, -4>.
+    """
+    random_values = iter([2, 1, 1, 1, 1, 1, 3, 1, 2, 1, 1, 1, 3, 4, 0, 0])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question7()
+
+    assert result == False
+
+def test_question_7_poly_only_correct(monkeypatch):
+    """
+    For the following version of Question 7, the function should return 
+    True if the user inputs 2.
+
+    Question:
+        Consider the function f(x, y) = 2y + x + 2
+        Compute the directional derivative of f(x, y) at the point (2, 3)
+        in the direction opposite to the vector <0, -5>.
+    """
+    random_values = iter([0, 2, 0, 0, 2, 2, 0, 2, 1, 2, 0, 0, 0, 5, 2, 3])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "2")
+
+    result = Questions.question7()
+
+    assert result == True
+
