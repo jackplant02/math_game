@@ -1,6 +1,6 @@
 import random
 import builtins
-from math_game import Polynomial, Questions
+from mathquiz.math_game import Polynomial, Questions
 
 # question 1
 def test_question1_correct(monkeypatch):
