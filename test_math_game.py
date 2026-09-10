@@ -483,3 +483,104 @@ def test_question_7_poly_only_correct(monkeypatch):
 
     assert result == True
 
+def test_question_7_poly_only_incorrect(monkeypatch):
+    """
+    For the following version of Question 7, the function should return 
+    False if the user inputs 2.1.
+
+    Question:
+        Consider the function f(x, y) = 2y + x + 2
+        Compute the directional derivative of f(x, y) at the point (2, 3)
+        in the direction opposite to the vector <0, -5>.
+    """
+    random_values = iter([0, 2, 0, 0, 2, 2, 0, 2, 1, 2, 0, 0, 0, 5, 2, 3])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "2.1")
+
+    result = Questions.question7()
+
+    assert result == False
+
+def test_question_7_poly_only_bad(monkeypatch):
+    """
+    For the following version of Question 7, the function should return 
+    False if the user inputs text.
+
+    Question:
+        Consider the function f(x, y) = 2y + x + 2
+        Compute the directional derivative of f(x, y) at the point (2, 3)
+        in the direction opposite to the vector <0, -5>.
+    """
+    random_values = iter([0, 2, 0, 0, 2, 2, 0, 2, 1, 2, 0, 0, 0, 5, 2, 3])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question7()
+
+    assert result == False
+
+# question 8
+def test_question8_correct(monkeypatch):
+    """
+    Question 8 should return True if the system solution evaluates to x(0) = 3.0
+    and y(1) = 36.945, and the user inputs both correctly.
+    """
+    random_values = iter([2, 0, 0, 2, 3, 5, 0, 1])
+    answers = iter(["3.0", "36.945"])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": next(answers))
+
+    result = Questions.question8()
+
+    assert result == True
+
+def test_question8_first_incorrect(monkeypatch):
+    """
+    Question 8 should return False if the user inputs an incorrect value for x(t).
+    """
+    random_values = iter([2, 0, 0, 2, 3, 5, 0, 1])
+    answers = iter(["10.0", "36.945"])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": next(answers))
+
+    result = Questions.question8()
+
+    assert result == False
+
+def test_question8_second_incorrect(monkeypatch):
+    """
+    Question 8 should return False if the user inputs a correct x(t) but an
+    incorrect value for y(t).
+    """
+    random_values = iter([2, 0, 0, 2, 3, 5, 0, 1])
+    answers = iter(["3.0", "10.0"])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": next(answers))
+
+    result = Questions.question8()
+
+    assert result == False
+
+def test_question8_bad(monkeypatch):
+    """
+    Question 8 should return False if the user inputs text.
+    """
+    random_values = iter([2, 0, 0, 2, 3, 5, 0, 1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question8()
+
+    assert result == False
+
+def test_question8_blank(monkeypatch):
+    """
+    Question 8 should return False if the user inputs nothing.
+    """
+    random_values = iter([2, 0, 0, 2, 3, 5, 0, 1])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "")
+
+    result = Questions.question8()
+
+    assert result == False
