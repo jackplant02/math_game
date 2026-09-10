@@ -241,3 +241,44 @@ def test_question4_bad(monkeypatch):
     result = Questions.question4()
 
     assert result == False
+
+# question 4
+def test_question5_correct(monkeypatch):
+    """
+    Question 5 should return True if the given vectors are <2, 3, 1, 5> and
+    <-4, 3, 0, -5>, and the user inputs -24.
+    """
+    random_values = iter([4, 2, -4, 3, 3, 1, 0, 5, -5])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "-24")
+
+    result = Questions.question5()
+
+    assert result == True
+
+def test_question5_incorrect(monkeypatch):
+    """
+    Question 5 should return False if the given vectors are <2, 3, 1, 5> and
+    <-4, 3, 0, -5>, and the user inputs -2.
+    """
+    random_values = iter([4, 2, -4, 3, 3, 1, 0, 5, -5])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "-2")
+
+    result = Questions.question5()
+
+    assert result == False
+
+def test_question5_bad(monkeypatch):
+    """
+    Question 5 should return False if the given vectors are <2, 3, 1, 5> and
+    <-4, 3, 0, -5>, and the user inputs text.
+    """
+    random_values = iter([4, 2, -4, 3, 3, 1, 0, 5, -5])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": "text")
+
+    result = Questions.question5()
+
+    assert result == False
+
