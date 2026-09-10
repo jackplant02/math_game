@@ -597,7 +597,7 @@ class Questions:
         or math.isinf(correct1) or math.isinf(correct2):
             return Questions.question8()
 
-        question_string = "\nEnter your answers to 3 decimal places.\n"
+        question_string = "\nSolve the following initial value problem. Enter your answers to 3 decimal places.\n\n"
         question_string += "x'(t) = "
 
         # handle a and b conditions
@@ -642,19 +642,19 @@ class Questions:
         print(f"x(0) = {IC1}")
         print(f"y(0) = {IC2}")
 
-        print(f"\nx({x_at_time}) = ")
+        answer1 = input(f"\nx({x_at_time}) = ")
 
         try:
-            if round(float(input()), 3) != math.round(correct1, 3):
+            if round(float(answer1), 3) != round(correct1, 3):
                 return False
 
         except ValueError:
             return False
 
-        print(f"y({y_at_time}) = ")
+        answer2 = input(f"y({y_at_time}) = ")
 
         try:
-            if round(float(input()), 3) != math.round(correct2, 3):
+            if round(float(answer2), 3) != round(correct2, 3):
                 return False
 
         except ValueError:
@@ -688,7 +688,7 @@ while True:
     if selection == 'q':
         break
 
-    done_index = 7
+    done_index = 8
 
     if selection.isdigit() and int(selection) in range(1, done_index + 1):
         handle_question(int(selection))
