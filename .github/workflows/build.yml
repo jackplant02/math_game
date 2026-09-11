@@ -1,0 +1,58 @@
+name: Build Executables
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write  # Allows GitHub to upload files to your release
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # This tells GitHub to run this job 3 times simultaneously on these 3 operating systems
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    - name: Build with PyInstaller
+      run: pyinstaller --onefile --name mathquiz math_game.py
+
+    - name: Package Assets
+      shell: bash
+      run: |
+        # Rename and compress the files based on the operating system
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          mv dist/mathquiz.exe mathquiz-windows.exe
+          python -m zipfile -c mathquiz-windows.zip mathquiz-windows.exe
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          mv dist/mathquiz mathquiz-macos
+          python -m zipfile -c mathquiz-macos.zip mathquiz-macos
+        else
+          mv dist/mathquiz mathquiz-linux
+          tar -czvf mathquiz-linux.tar.gz mathquiz-linux
+        fi
+
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          mathquiz-windows.zip
+          mathquiz-macos.zip
+          mathquiz-linux.tar.gz
