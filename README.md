@@ -41,14 +41,14 @@ Ensure you have Python 3 installed on your system.
    ```
 
 2. Install the required dependencies:
-```bash
-pip install -r requirements.txt
-```
+  ```bash
+  pip install -r requirements.txt
+  ```
 
 3. Run the game:
-```bash
-# On macOS and Linux
-python3 math_game.py
+  ```bash
+  # On macOS and Linux
+  python3 math_game.py
 
 # On Windows:
 python math_game.py
