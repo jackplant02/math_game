@@ -1,1 +1,27 @@
-Simple math game, including problems ranging from simple algebra to complex ODE problems. This program was first created by me around 2022/23, but has been re-worked as a Python program. It is currently a work in progress.
+# Math Quiz
+
+A terminal-based math game challenge with 8 questions, increasing in difficulty from basic arithmetic to multivariable calculus and differential equations. 
+
+Math problems are randomly generated, meaning that you will almost never see the exact same problem twice. 
+
+## Math Topics (The Questions)
+1. **Arithmetic:** Addition and subtraction
+2. **Multiplication:** Basic integer multiplication
+3. **Algebra:** Finding roots of quadratic equations
+4. **Calculus I:** Evaluating first derivatives of polynomials
+5. **Linear Algebra:** Computing vector dot products
+6. **Calculus II:** Finding the enclosing area between two curves (integration)
+7. **Multivariable Calculus:** Computing directional derivatives of $f(x,y)$
+8. **Differential Equations:** Solving systems of linear homogeneous differential equations (Initial Value Problems)
+
+The game also tracks your score out of 8, and prevents you from re-answering already correctly answered questions. 
+
+## Installation and Running
+
+### Option 1: macOS Standalone (Apple Silicon Only)
+If you are on an M-Series Mac, you can run the game without installing Python.
+
+1. Download the latest macOS `.zip` release from the [Releases](https://github.com/jackplant02/math_game/releases) tab.
+2. Unzip the file to extract the `mathquiz` executable
+3. Bypass macOS Security (Gatekeeper): Because this app is an open-source project, macOS will flag it as unidentified/unverifiable.
+   * 
