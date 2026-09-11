@@ -560,9 +560,12 @@ class Questions:
                 c2 = (IC2 - vector1[1] * IC2 / vector1[0]) / (vector2[1] - vector2[0] * vector1[1] / vector1[0])
                 c1 = (IC1 - c2 * vector2[0]) / vector1[0]
 
-            else:
+            elif vector2[0] != 0:
                 c2 = IC1 / vector2[0]
-                c1 = (IC2 - c2 * vector2[1] / vector1[1])
+                c1 = IC2 - c2 * vector2[1]
+
+            else:
+                return Questions.question8()
 
             def xOft(t):
                 return c1 * math.e ** (lambda1.real * t) * vector1[0] + c2 * math.e ** (lambda2.real * t) * vector2[0]
