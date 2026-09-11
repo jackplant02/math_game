@@ -18,20 +18,25 @@ The game also tracks your score out of 8, and prevents you from re-answering alr
 
 ## Installation and Running
 
-### Option 1: macOS Standalone (Apple Silicon Only)
-If you are on an M-Series Mac, you can run the game without installing Python.
+### Option 1: Standalone Executable (No Python Required)
+Pre-compiled executables are available for Windows, macOS, and Linux.
 
-1. Download the latest macOS `.zip` release from the [Releases](https://github.com/jackplant02/math_game/releases) tab.
-2. Unzip the file to extract the `mathquiz` executable
-3. Bypass macOS Security (Gatekeeper). Because this app is an open-source project, macOS will flag it as unidentified/unverifiable.
-   * Double click the `mathquiz` executable. A pop-up will appear stating that the app could not be opened.
-   * Open **Privacy & Security** in your macOS Settings.
-   * Scroll down to the bottom of the page, and you will see a notification that says '"mathquiz" was blocked to protect your Mac.'
-   * Click 'Open Anyway' next to this message.
-   * In the pop-up that appears, click 'Open Anyway', and authenticate.
-   * You only need to do this the first time you run the app.
+1. Navigate to the [Releases](https://github.com/jackplant02/math_game/releases) tab.
+2. Download the `.zip` or `.tar.gz` file that matches your operating system and processor architecture.
+3. Extract the downloaded file.
+4. **On Windows:** Double-click the extracted executable to play.
+5. **On Linux:** Open your terminal, navigate to the folder, and run the file.
 
-### Option 2: Run via Python (Windows, Linux, and Intel Macs)
+**Note for macOS Users (Gatekeeper Bypass):**
+Because this app is an open-source project, macOS will flag it as unidentified/unverifiable.
+* Double-click the extracted executable. A pop-up will appear stating that the app could not be opened.
+* Open **Privacy & Security** in your macOS Settings.
+* Scroll down to the bottom of the page, and you will see a notification that says '"mathquiz" was blocked to protect your Mac.'
+* Click 'Open Anyway' next to this message.
+* In the pop-up that appears, click 'Open Anyway', and authenticate.
+* You only need to do this the first time you run the app.
+
+### Option 2: Install via Python
 Ensure you have Python 3 installed on your system.
 
 1. Clone this repository:
@@ -39,6 +44,7 @@ Ensure you have Python 3 installed on your system.
 git clone https://github.com/jackplant02/math_game.git
 cd math_game
 ```
+
 2. Create and activate a virtual environment
 ```bash
 # On macOS and Linux:
@@ -58,4 +64,4 @@ pip install -e .
 3. Run the game:
 ```bash
 mathquiz
-```
+``` 
