@@ -40,16 +40,12 @@ git clone https://github.com/jackplant02/math_game.git
 cd math_game
 ```
 
-2. Install the required dependencies:
+2. Install the game locally:
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
 
 3. Run the game:
 ```bash
-# On macOS and Linux
-python3 math_game.py
-
-# On Windows:
-python math_game.py
+mathquiz
 ```
