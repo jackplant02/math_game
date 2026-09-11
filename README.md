@@ -39,14 +39,20 @@ Ensure you have Python 3 installed on your system.
 git clone https://github.com/jackplant02/math_game.git
 cd math_game
 ```
-
-2. Install the game locally:
+2. Create and activate a virtual environment
 ```bash
-# On Windows:
-pip install -e .
-
 # On macOS and Linux:
-python3 -m pip install -e .
+python3 -m venv venv
+source venv/bin/activate
+
+# On Windows (Command Prompt):
+python -m venv venv
+venv\Scripts\activate
+```
+
+3. Install the game locally:
+```bash
+pip install -e .
 ```
 
 3. Run the game:
