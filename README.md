@@ -50,6 +50,6 @@ Ensure you have Python 3 installed on your system.
   # On macOS and Linux
   python3 math_game.py
 
-# On Windows:
-python math_game.py
-```
+  # On Windows:
+  python math_game.py
+  ```
