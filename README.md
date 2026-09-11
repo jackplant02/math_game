@@ -2,7 +2,7 @@
 
 A terminal-based math game challenge with 8 questions, increasing in difficulty from basic arithmetic to multivariable calculus and differential equations. 
 
-Math problems are randomly generated, meaning that you will almost never see the exact same problem twice. 
+Math problems are randomly generated. 
 
 ## Math Topics (The Questions)
 1. **Arithmetic:** Addition and subtraction
