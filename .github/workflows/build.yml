@@ -12,37 +12,31 @@ jobs:
     name: Build (${{ matrix.id }})
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false # If one OS fails, keep building the others
+      fail-fast: false 
       matrix:
         include:
           # Linux builds
           - id: linux-x64
             os: ubuntu-latest
-            binary_name: mathquiz-linux-x64
             archive_type: tar
           - id: linux-arm64
             os: ubuntu-24.04-arm
-            binary_name: mathquiz-linux-arm64
             archive_type: tar
             
           # Windows builds
           - id: windows-x64
             os: windows-latest
-            binary_name: mathquiz-windows-x64.exe
             archive_type: zip
           - id: windows-arm64
             os: windows-11-arm
-            binary_name: mathquiz-windows-arm64.exe
             archive_type: zip
             
           # macOS builds
           - id: macos-arm64
             os: macos-latest
-            binary_name: mathquiz-macos-arm64
             archive_type: zip
           - id: macos-x64
             os: macos-15-intel
-            binary_name: mathquiz-macos-x64
             archive_type: zip
 
     steps:
@@ -61,23 +55,19 @@ jobs:
         pip install pyinstaller
 
     - name: Build with PyInstaller
-      run: pyinstaller --onefile --name ${{ matrix.binary_name }} mathquiz/math_game.py
+      run: pyinstaller --onefile --name mathquiz mathquiz/math_game.py
 
     - name: Package Assets
       shell: bash
+      working-directory: ./dist   
       run: |
-        # Rename the binary to just 'mathquiz' (or mathquiz.exe) before zipping
-        # This gives the user a clean, standard file name when they extract it
         if [[ "${{ matrix.os }}" == windows* ]]; then
-          mv dist/${{ matrix.binary_name }} mathquiz.exe
-          python -m zipfile -c ${{ matrix.id }}.zip mathquiz.exe
+          python -m zipfile -c ../${{ matrix.id }}.zip mathquiz.exe
         else
-          mv dist/${{ matrix.binary_name }} mathquiz
-          
           if [ "${{ matrix.archive_type }}" == "zip" ]; then
-            python -m zipfile -c ${{ matrix.id }}.zip mathquiz
+            python -m zipfile -c ../${{ matrix.id }}.zip mathquiz
           else
-            tar -czvf ${{ matrix.id }}.tar.gz mathquiz
+            tar -czvf ../${{ matrix.id }}.tar.gz mathquiz
           fi
         fi
 
