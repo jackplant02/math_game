@@ -66,13 +66,19 @@ jobs:
     - name: Package Assets
       shell: bash
       run: |
-        # Make the packaging step OS-agnostic using Python's built-in zipfile/tarfile
-        if [ "${{ matrix.archive_type }}" == "zip" ]; then
-          cp dist/${{ matrix.binary_name }}* .
-          python -m zipfile -c ${{ matrix.id }}.zip ${{ matrix.binary_name }}*
+        # Rename the binary to just 'mathquiz' (or mathquiz.exe) before zipping
+        # This gives the user a clean, standard file name when they extract it
+        if [[ "${{ matrix.os }}" == windows* ]]; then
+          mv dist/${{ matrix.binary_name }} mathquiz.exe
+          python -m zipfile -c ${{ matrix.id }}.zip mathquiz.exe
         else
-          cp dist/${{ matrix.binary_name }}* .
-          tar -czvf ${{ matrix.id }}.tar.gz ${{ matrix.binary_name }}*
+          mv dist/${{ matrix.binary_name }} mathquiz
+          
+          if [ "${{ matrix.archive_type }}" == "zip" ]; then
+            python -m zipfile -c ${{ matrix.id }}.zip mathquiz
+          else
+            tar -czvf ${{ matrix.id }}.tar.gz mathquiz
+          fi
         fi
 
     - name: Upload to Release
