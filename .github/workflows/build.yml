@@ -31,7 +31,7 @@ jobs:
             binary_name: mathquiz-windows-x64.exe
             archive_type: zip
           - id: windows-arm64
-            os: windows-arm64 
+            os: windows-11-arm
             binary_name: mathquiz-windows-arm64.exe
             archive_type: zip
             
