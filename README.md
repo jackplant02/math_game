@@ -28,7 +28,7 @@ If you are on an M-Series Mac, you can run the game without installing Python.
    * Open **Privacy & Security** in your macOS Settings.
    * Scroll down to the bottom of the page, and you will see a notification that says '"mathquiz" was blocked to protect your Mac.'
    * Click 'Open Anyway' next to this message.
-   * In the pop-up that appears, click "Open Anyway", and authenticate.
+   * In the pop-up that appears, click 'Open Anyway', and authenticate.
    * You only need to do this the first time you run the app.
 
 ### Option 2: Run via Python (Windows, Linux, and Intel Macs)
