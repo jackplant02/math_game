@@ -42,7 +42,11 @@ cd math_game
 
 2. Install the game locally:
 ```bash
+# On Windows:
 pip install -e .
+
+# On macOS and Linux:
+python3 -m pip install -e .
 ```
 
 3. Run the game:
