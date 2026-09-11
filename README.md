@@ -18,7 +18,7 @@ The game also tracks your score out of 8, and prevents you from re-answering alr
 
 ## Installation and Running
 
-### Option 1: Standalone Executable (No Python Required)
+### Option 1: Standalone Executable 
 Pre-compiled executables are available for Windows, macOS, and Linux.
 
 1. Navigate to the [Releases](https://github.com/jackplant02/math_game/releases) tab.
