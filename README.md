@@ -35,21 +35,21 @@ If you are on an M-Series Mac, you can run the game without installing Python.
 Ensure you have Python 3 installed on your system.
 
 1. Clone this repository:
-   ```bash
-   git clone https://github.com/jackplant02/math_game.git
-   cd math_game
-   ```
+```bash
+git clone https://github.com/jackplant02/math_game.git
+cd math_game
+```
 
 2. Install the required dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
+```bash
+pip install -r requirements.txt
+```
 
 3. Run the game:
-  ```bash
-  # On macOS and Linux
-  python3 math_game.py
+```bash
+# On macOS and Linux
+python3 math_game.py
 
-  # On Windows:
-  python math_game.py
-  ```
+# On Windows:
+python math_game.py
+```
