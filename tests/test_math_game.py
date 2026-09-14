@@ -573,6 +573,23 @@ def test_question8_bad(monkeypatch):
 
     assert result == False
 
+def test_question8_bug_test(monkeypatch):
+    """
+    Question 8 should return True if the user inputs the correct value
+    of x(t) and y(t), as shown below.
+
+    This specific problem was reported by a user as erroneously marking
+    the question as incorrect.
+    """
+    random_values = iter([7, 4, -5, -5, 2, 8, -2, 1])
+    answers = iter(["-1815.429", "-481.783"])
+    monkeypatch.setattr(random, "randint", lambda a, b: next(random_values))
+    monkeypatch.setattr(builtins, "input", lambda prompt="": next(answers))
+
+    result = Questions.question8()
+
+    assert result == True
+
 def test_question8_blank(monkeypatch):
     """
     Question 8 should return False if the user inputs nothing.

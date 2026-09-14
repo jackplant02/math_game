@@ -551,7 +551,7 @@ class Questions:
             vector2 = mat.find_real_eigenvector(lambda2)
 
             if vector1[0] != 0:
-                c2 = (IC2 - vector1[1] * IC2 / vector1[0]) / (vector2[1] - vector2[0] * vector1[1] / vector1[0])
+                c2 = (IC2 - vector1[1] * IC1 / vector1[0]) / (vector2[1] - vector2[0] * vector1[1] / vector1[0])
                 c1 = (IC1 - c2 * vector2[0]) / vector1[0]
 
             elif vector2[0] != 0:
