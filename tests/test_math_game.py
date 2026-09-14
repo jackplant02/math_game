@@ -584,3 +584,51 @@ def test_question8_blank(monkeypatch):
     result = Questions.question8()
 
     assert result == False
+
+# get_polynomial tests
+def test_get_polynomial_trailing_zeros():
+    """
+    get_polynomial should return "5x^5 + 4x^4" for coefficients
+    [5, 4, 0, 0, 0, 0].
+    """
+    Polynomial.coefficient_list = [5, 4, 0, 0, 0, 0]
+    p = Polynomial()
+
+    result = p.get_polynomial()
+
+    assert result == "5x^5 + 4x^4"
+
+def test_get_polynomial_all_zeros():
+    """
+    get_polynomial should return "0" if every coefficient is zero.
+    """
+    Polynomial.coefficient_list = [0, 0, 0, 0]
+    p = Polynomial()
+
+    result = p.get_polynomial()
+
+    assert result == "0"
+
+def test_get_polynomial_zero_in_middle():
+    """
+    get_polynomial should skip a zero coefficient that is not trailing,
+    returning "x^2 + 3" for coefficients [1, 0, 3].
+    """
+    Polynomial.coefficient_list = [1, 0, 3]
+    p = Polynomial()
+
+    result = p.get_polynomial()
+
+    assert result == "x^2 + 3"
+
+def test_get_polynomial_negative_leading_coefficient():
+    """
+    get_polynomial should return "-x^3 + 2x - 1" for coefficients
+    [-1, 0, 2, -1].
+    """
+    Polynomial.coefficient_list = [-1, 0, 2, -1]
+    p = Polynomial()
+
+    result = p.get_polynomial()
+
+    assert result == "-x^3 + 2x - 1"

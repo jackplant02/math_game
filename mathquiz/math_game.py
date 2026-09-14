@@ -23,43 +23,37 @@ class Polynomial:
         """
         Returns the polynomial in the form of a string
         """
+        coefficient_list = Polynomial.coefficient_list
+        degree = len(coefficient_list) - 1
         polynomial_set = []
-        zeros_count = 0
 
-        for i in range(len(Polynomial.coefficient_list)):
-            if Polynomial.coefficient_list[i] == 0:
-                zeros_count += 1
-                if i == len(Polynomial.coefficient_list) - 1 and len(polynomial_set) >= 3:
-                    del polynomial_set[len(polynomial_set) - 3:]
+        for i, coeff in enumerate(coefficient_list):
+            if coeff == 0:
+                continue
 
-            elif i < len(Polynomial.coefficient_list) - 1:
+            power = degree - i
 
-                if len(Polynomial.coefficient_list) - i - 1 == 1:
-                    if Polynomial.coefficient_list[i] == 1:
-                        polynomial_set.append(f"x + ")
-                    elif Polynomial.coefficient_list[i] == -1:
-                        polynomial_set.append(f"-x + ")
-                    else:
-                        polynomial_set.append(f"{Polynomial.coefficient_list[i]}x + ")
-
+            if power == 0:
+                polynomial_set.append(f"{coeff}")
+            elif power == 1:
+                if coeff == 1:
+                    polynomial_set.append("x")
+                elif coeff == -1:
+                    polynomial_set.append("-x")
                 else:
-                    if Polynomial.coefficient_list[i] == 1:
-                        polynomial_set.append(f"x^{len(Polynomial.coefficient_list) - i - 1} + ")
-                    elif Polynomial.coefficient_list[i] == -1:
-                        polynomial_set.append(f"-x^{len(Polynomial.coefficient_list) - i - 1} + ")
-                    else:
-                        polynomial_set.append(f"{Polynomial.coefficient_list[i]}x^{len(Polynomial.coefficient_list) - i - 1} + ")
-
+                    polynomial_set.append(f"{coeff}x")
             else:
-                polynomial_set.append(f"{Polynomial.coefficient_list[i]}")
+                if coeff == 1:
+                    polynomial_set.append(f"x^{power}")
+                elif coeff == -1:
+                    polynomial_set.append(f"-x^{power}")
+                else:
+                    polynomial_set.append(f"{coeff}x^{power}")
 
-            if zeros_count == len(Polynomial.coefficient_list):
-                return "0"
+        if not polynomial_set:
+            return "0"
 
-        result = ""
-        for item in polynomial_set:
-            result += item
-
+        result = " + ".join(polynomial_set)
         result = result.replace("+ -", "- ")
         return result
 
